@@ -1,0 +1,61 @@
+1. Elección de tipos de NoSQL por componente
+
+Componente      	           Tipo de NoSQL	Justificación
+Mensajes	                    Documental	    Estructura flexible, ideal para almacenar mensajes con metadatos (MongoDB).
+Sesiones y tokens	            Clave-Valor	    Acceso rápido, ideal para autenticación y estado de conexión (Redis).
+Contactos y redes	            Grafos	        Modela relaciones entre usuarios (Neo4j, Amazon Neptune).
+Notificaciones en tiempo real	En memoria	    Alta velocidad para colas y eventos (Redis Streams, Pub/Sub).
+
+2. Modelo de datos simplificado
+
+ Colección usuarios (MongoDB)
+ {
+  "_id": "u123",
+  "nombre": "Ana",
+  "telefono": "+56912345678",
+  "estado": "Disponible",
+  "foto": "url_imagen",
+  "fecha_registro": "2025-07-01T12:00:00Z"
+}
+
+Colección mensajes
+
+{
+  "_id": "m456",
+  "emisor_id": "u123",
+  "receptor_id": "u789",
+  "contenido": "Hola, ¿cómo estás?",
+  "timestamp": "2025-07-23T21:00:00Z",
+  "estado": "entregado"
+}
+
+
+Clave-Valor (Redis)
+clave: session:u123
+valor: { "token": "abc123", "estado": "conectado", "ultimo_ping": "2025-07-23T21:53:00Z" }
+
+
+Grafo (Neo4j)
+(u123)-[:CONTACTO]->(u789)
+(u123)-[:BLOQUEADO]->(u456)
+
+3. Escalabilidad
+Horizontal
+MongoDB: Sharding por receptor_id para distribuir mensajes entre nodos.
+Redis: Clustering para distribuir sesiones y notificaciones.
+Neo4j: Escalado con particiones de grafos y replicación.
+
+Vertical
+Aumentar CPU/RAM en nodos que manejan alta concurrencia (por ejemplo, Redis para notificaciones).
+
+Ventajas del diseño
+Desafío	                            Solución NoSQL propuesta
+Alta concurrencia de mensajes	    MongoDB con escritura rápida y replicación.
+Estado de conexión en tiempo real	Redis con TTL y Pub/Sub para eventos.
+Relaciones complejas entre usuarios	Neo4j permite consultas como “amigos de amigos” o “usuarios bloqueados”.
+Escalabilidad global	            Sharding y clustering permiten escalar horizontalmente sin pérdida de rendimiento.
+Flexibilidad de datos	            MongoDB permite agregar nuevos campos sin migraciones.
+
+
+
+

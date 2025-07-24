@@ -1,0 +1,124 @@
+Informe de Evaluación y Propuesta de Solución de Base de Datos
+1. Resumen Ejecutivo
+La empresa enfrenta problemas de rendimiento, escalabilidad y flexibilidad con su sistema actual de base de datos relacional. Las consultas se ralentizan durante los picos de carga, el crecimiento de los datos ha superado la capacidad de escalabilidad vertical, y existen dificultades para integrar nuevas fuentes y estructuras de datos.
+
+Este informe analiza y compara diversas tecnologías de bases de datos, tanto relacionales como NoSQL, considerando factores clave como rendimiento, escalabilidad, costos y compatibilidad con los sistemas existentes. Como resultado, se propone una solución basada en PostgreSQL para datos estructurados y MongoDB para datos semiestructurados o dinámicos, brindando una arquitectura híbrida robusta, flexible y escalable.
+
+2. Análisis del Problema
+A partir del diagnóstico del entorno tecnológico actual, se identifican los siguientes problemas:
+
+Rendimiento: La base de datos actual presenta tiempos de respuesta lentos durante picos de carga o al ejecutar consultas complejas sobre grandes volúmenes de datos.
+
+Escalabilidad: Escalar verticalmente (más CPU o RAM) ya no es viable. Se requiere una solución que permita escalar horizontalmente de forma eficiente.
+
+Mantenimiento: Los costos de operación y mantenimiento son elevados, especialmente en la administración de réplicas, backups y ajustes de rendimiento.
+
+Integración: La base relacional presenta limitaciones al integrar datos de nuevas fuentes no estructuradas como logs, APIs, redes sociales o sensores IoT.
+
+Flexibilidad: Las restricciones del esquema relacional dificultan la adaptación a cambios frecuentes en el modelo de datos.
+
+3. Comparación de Tecnologías
+Se evaluaron seis tecnologías, dividiéndolas en dos grandes categorías: relacionales y NoSQL.
+
+Bases de Datos Relacionales
+MySQL
+Ventajas: Amplio soporte, facilidad de uso, ideal para aplicaciones web.
+
+Desventajas: Limitaciones para escalar horizontalmente, menor rendimiento en operaciones analíticas complejas.
+
+Casos de uso: Sistemas de gestión de contenido, e-commerce.
+
+PostgreSQL
+Ventajas: Soporte para datos no estructurados (JSONB), extensibilidad, rendimiento sólido, comunidad activa.
+
+Desventajas: Requiere mayor conocimiento técnico para sacar el máximo provecho.
+
+Casos de uso: Aplicaciones empresariales, análisis de datos, sistemas híbridos.
+
+SQL Server
+Ventajas: Integración con herramientas Microsoft, capacidades BI avanzadas.
+
+Desventajas: Costos de licencia elevados, dependencia de ecosistema cerrado.
+
+Casos de uso: BI corporativo, sistemas ERP.
+
+Bases de Datos NoSQL
+MongoDB
+Ventajas: Modelo documental flexible (JSON), escalabilidad horizontal, adecuado para datos en evolución.
+
+Desventajas: Consistencia eventual por defecto, curva de diseño de consultas más compleja.
+
+Casos de uso: Big Data, aplicaciones en tiempo real, formularios dinámicos.
+
+Cassandra
+Ventajas: Alta disponibilidad, tolerancia a fallos, ideal para escritura masiva.
+
+Desventajas: Modelo de datos complejo, no es óptimo para consultas relacionales.
+
+Casos de uso: IoT, telecomunicaciones, análisis en tiempo real.
+
+DynamoDB
+Ventajas: Totalmente gestionado por AWS, escalabilidad automática, baja latencia.
+
+Desventajas: Costos variables difíciles de predecir, dependencia total de AWS.
+
+Casos de uso: Aplicaciones cloud-native, ecommerce de alta demanda.
+
+Otros evaluados (breve mención):
+Redis: Ideal como caché en memoria, pero no apto como base de datos principal.
+
+Neo4j: Excelente para relaciones complejas (grafos), pero limitado para almacenamiento general.
+
+4. Propuesta de Solución
+Solución Recomendada: Arquitectura Híbrida PostgreSQL + MongoDB
+Se propone adoptar un enfoque combinado:
+
+PostgreSQL para operaciones transaccionales y datos estructurados como usuarios, ventas, reportes financieros.
+
+MongoDB para el almacenamiento de datos dinámicos, no estructurados o de rápida evolución, como logs, formularios dinámicos o eventos en tiempo real.
+
+Justificación Técnica y Económica:
+Escalabilidad: MongoDB permite sharding para escalar horizontalmente. PostgreSQL puede complementarse con réplicas para lecturas.
+
+Rendimiento: Cada motor de base de datos se utilizará según sus fortalezas, mejorando la eficiencia general.
+
+Costos: Ambas tecnologías son open-source, lo que reduce costos de licenciamiento.
+
+Modelo de Datos: Se adaptan a distintas estructuras, facilitando integración con servicios modernos (microservicios, ETLs, APIs).
+
+Flexibilidad: El sistema se adapta al crecimiento y cambio continuo de los datos.
+
+Ventajas de esta arquitectura:
+Soporte para múltiples tipos de datos.
+
+Balance entre consistencia y escalabilidad.
+
+Reducción de cuellos de botella en bases de datos únicas.
+
+Mejora de tiempos de respuesta y disponibilidad.
+
+Desafíos y Consideraciones:
+Aumenta la complejidad operativa.
+
+Requiere capacitación del equipo.
+
+Necesidad de definir claramente qué tipo de datos va a cada base.
+
+5. Conclusiones y Recomendaciones Finales
+La evaluación realizada demuestra que la arquitectura actual basada únicamente en bases de datos relacionales ya no responde a las necesidades técnicas ni estratégicas de la empresa. El crecimiento de los datos y la necesidad de flexibilidad imponen una revisión profunda del stack tecnológico.
+
+Conclusiones:
+PostgreSQL es ideal para cargas transaccionales estructuradas con necesidad de integridad fuerte.
+
+MongoDB es una excelente opción para cargas dinámicas y no estructuradas, con escalabilidad y flexibilidad superiores.
+
+Una arquitectura híbrida permitirá escalar con control de costos, manteniendo el rendimiento y la agilidad del negocio.
+
+Recomendaciones:
+Realizar una prueba piloto con un módulo o área del negocio antes de migrar el sistema completo.
+
+Capacitar al equipo en MongoDB y en patrones de arquitectura híbrida.
+
+Automatizar la observabilidad y monitoreo de ambas bases de datos.
+
+Evaluar soluciones en la nube como MongoDB Atlas y Amazon RDS para PostgreSQL, lo cual puede reducir la carga operativa.

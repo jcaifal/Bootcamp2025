@@ -1,0 +1,63 @@
+Caso 1: Plataforma de mensajería en tiempo real para equipos de trabajo
+Tipo de base de datos NoSQL recomendado: Clave-valor
+
+Justificación:
+
+Alta demanda de escritura: Las bases de datos clave-valor, como Redis, son excelentes para manejar grandes volúmenes de operaciones de escritura debido a su estructura simple y eficiente.
+Baja latencia: Redis, por ejemplo, ofrece tiempos de respuesta extremadamente rápidos, lo cual es crucial para aplicaciones de mensajería en tiempo real.
+Almacenamiento flexible: Permite almacenar mensajes, adjuntos, reacciones y menciones de manera eficiente, adaptándose a las necesidades de la aplicación.
+Ventajas:
+
+Velocidad: Redis es conocido por su velocidad y capacidad de manejar grandes volúmenes de datos en tiempo real.
+Disponibilidad: Redis puede configurarse para alta disponibilidad y replicación, asegurando que los mensajes estén siempre accesibles.
+Escalabilidad: Redis se escala fácilmente para manejar aumentos en la carga de trabajo.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Caso 2: Sistema de recomendaciones para una plataforma de streaming
+Tipo de base de datos NoSQL recomendado: Grafos
+
+Justificación:
+
+Relaciones complejas: Las bases de datos de grafos, como Neo4j, son ideales para manejar relaciones complejas entre usuarios y contenido.
+Análisis de afinidad: Permiten realizar análisis de afinidad y recomendaciones personalizadas basadas en conexiones sociales y preferencias.
+Navegación eficiente: Facilitan la navegación entre nodos (usuario → género → contenido → popularidad) de manera eficiente.
+Ventajas:
+
+Flexibilidad: Neo4j permite modelar y consultar relaciones complejas de manera intuitiva.
+Rendimiento: Optimiza las consultas de relaciones y conexiones, mejorando la velocidad de las recomendaciones.
+Escalabilidad: Se adapta bien a grandes volúmenes de datos y relaciones, manteniendo un rendimiento óptimo.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Caso 3: Gestión documental para una clínica veterinaria
+Tipo de base de datos NoSQL recomendado: Documental
+
+Justificación:
+
+Estructura flexible: Las bases de datos documentales, como MongoDB, permiten almacenar datos clínicos, recetas, vacunaciones y visitas en documentos JSON, adaptándose a la variabilidad de cada ficha.
+Acceso rápido: Facilitan el acceso rápido por ID de mascota o nombre, mejorando la eficiencia en la gestión de expedientes.
+Actualización sin migraciones: Permiten actualizar documentos sin necesidad de migraciones estructurales, lo cual es crucial para mantener la flexibilidad.
+Ventajas:
+
+Flexibilidad: MongoDB permite almacenar datos de manera flexible y sin esquema fijo, adaptándose a las necesidades cambiantes.
+Rendimiento: Ofrece un rendimiento óptimo en consultas y actualizaciones.
+Escalabilidad: Se escala fácilmente para manejar grandes volúmenes de datos clínicos.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Caso 4: Aplicación de cupones y promociones geolocalizadas
+Tipo de base de datos NoSQL recomendado: En memoria
+
+Justificación:
+
+Búsquedas rápidas: Las bases de datos en memoria, como Redis, son ideales para realizar búsquedas rápidas en memoria, cruciales para responder en tiempo real.
+Consultas por coordenadas: Permiten realizar consultas eficientes por coordenadas geográficas.
+Actualizaciones frecuentes: Manejan actualizaciones frecuentes con baja latencia, asegurando que las ofertas sean siempre relevantes.
+Escalabilidad: Se escalan rápidamente para eventos masivos como Black Friday y Navidad.
+Ventajas:
+
+Velocidad: Redis ofrece tiempos de respuesta extremadamente rápidos, esenciales para aplicaciones en tiempo real.
+Escalabilidad: Redis se adapta fácilmente a aumentos en la carga de trabajo, manteniendo un rendimiento óptimo.
+Disponibilidad: Redis puede configurarse para alta disponibilidad y replicación, asegurando que las promociones estén siempre accesibles.

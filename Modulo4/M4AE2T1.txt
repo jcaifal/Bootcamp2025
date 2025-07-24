@@ -1,0 +1,52 @@
+Consulta SQL mal optimizada
+---------------------------
+
+SELECT *
+FROM usuarios u
+JOIN compras c ON u.id = c.user_id
+JOIN productos p ON c.producto_id = p.id
+WHERE YEAR(c.fecha_compra) = 2023
+  AND p.categoria = 'Electrónica'
+ORDER BY u.nombre;
+
+
+
+Problemas detectados
+--------------------
+
+Uso de SELECT *: Recupera todas las columnas, incluso las que no se necesitan, lo que aumenta el uso de memoria y ancho de banda.
+Falta de índices: No se mencionan índices en fecha_compra, producto_id o categoria, lo que puede generar escaneos completos de tabla.
+Uso de funciones en la cláusula WHERE: YEAR(c.fecha_compra) impide el uso de índices sobre fecha_compra.
+Ordenamiento innecesario: ORDER BY u.nombre puede ser costoso si no es necesario para el análisis.
+Uniones innecesarias: Si no se usan columnas de productos, la unión puede ser redundante.
+
+
+EXPLAIN SELECT ...
+
+
+Consulta optimizada
+-------------------
+
+-- Crear índices sugeridos (si no existen)
+-- CREATE INDEX idx_fecha_compra ON compras(fecha_compra);
+-- CREATE INDEX idx_categoria ON productos(categoria);
+
+SELECT u.id, u.nombre, COUNT(c.id) AS total_compras, SUM(c.monto) AS total_gastado
+FROM usuarios u
+JOIN compras c ON u.id = c.user_id
+JOIN productos p ON c.producto_id = p.id
+WHERE c.fecha_compra BETWEEN '2023-01-01' AND '2023-12-31'
+  AND p.categoria = 'Electrónica'
+GROUP BY u.id, u.nombre
+ORDER BY total_compras DESC;
+
+
+Justificación de mejoras
+Mejora	Justificación
+SELECT específico	Reduce el volumen de datos transferidos y procesados.
+Índices en fecha_compra y categoria	Aceleran los filtros en WHERE.
+Reemplazo de YEAR() por BETWEEN	Permite el uso de índices en fechas.
+Eliminación de ORDER BY u.nombre	Se reemplaza por ordenamiento más útil (total_compras DESC).
+Agregación con GROUP BY	Permite análisis más útil por usuario.
+
+

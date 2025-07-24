@@ -1,0 +1,55 @@
+Tipos de bases de datos NoSQL y escenarios reales
+-------------------------------------------------
+
+Tipo de NoSQL	Escenario de uso real	                                                            Justificación técnica
+Clave-Valor	    Caché de sesiones de usuario, tokens de autenticación	                            Extremadamente rápido, ideal para accesos simples por clave, como Redis o DynamoDB.
+Documental	    Almacenamiento de perfiles de usuario, publicaciones, comentarios	                Flexible, sin esquema fijo, ideal para estructuras JSON como MongoDB o Couchbase.
+Columnares	    Análisis de logs de actividad, métricas de uso, analítica de eventos	            Optimizado para consultas analíticas y agregaciones masivas, como Apache Cassandra.
+Grafos	        Relaciones entre usuarios (seguidores, amigos), recomendaciones, rutas de conexión	Modela relaciones complejas de forma natural y eficiente, como Neo4j o Amazon Neptune.
+En memoria	    Rankings en tiempo real, feeds personalizados, colas de mensajes	                Ultra rápido, ideal para operaciones temporales o de alta concurrencia.
+
+Caso específico: Red Social
+1. Perfiles de usuario y publicaciones
+Tipo NoSQL: Documental (MongoDB)
+Ventajas:
+Permite almacenar documentos JSON con estructura flexible.
+Ideal para datos heterogéneos como biografías, fotos, listas de intereses.
+Escalable horizontalmente.
+
+{
+  "user_id": "u123",
+  "nombre": "Ana",
+  "publicaciones": [
+    {"fecha": "2025-07-01", "contenido": "¡Hola mundo!", "likes": 10}
+  ]
+}
+
+2. Relaciones entre usuarios (seguidores, amigos)
+Tipo NoSQL: Grafos (Neo4j)
+Ventajas:
+Consulta eficiente de relaciones como “amigos de amigos” o “usuarios sugeridos”.
+Ideal para redes sociales donde las conexiones son clave.
+Consultas como MATCH (a)-[:SIGUE]->(b) son intuitivas y rápidas.
+
+3. Feed personalizado y caché de sesión
+Tipo NoSQL: En memoria / Clave-Valor (Redis)
+Ventajas:
+Acceso ultra rápido a datos temporales.
+Ideal para almacenar feeds generados dinámicamente o tokens de sesión.
+Soporta estructuras como listas, sets y sorted sets para rankings.
+
+4. Análisis de actividad y métricas
+Tipo NoSQL: Columnares (Apache Cassandra)
+Ventajas:
+Excelente para almacenar grandes volúmenes de eventos (likes, vistas, clics).
+Optimizado para lecturas por columnas específicas (por ejemplo, actividad por día).
+Escalabilidad lineal para grandes volúmenes de datos.
+
+Justificación general del modelo NoSQL
+--------------------------------------
+
+Criterio	        Ventaja del modelo NoSQL
+Escalabilidad	    Todos los modelos NoSQL están diseñados para escalar horizontalmente.
+Flexibilidad	    Documentales y grafos permiten estructuras dinámicas sin necesidad de migraciones.
+Rendimiento	        Clave-valor y en memoria ofrecen latencias de milisegundos o menos.
+Consultas complejas	Grafos permiten modelar relaciones complejas de forma natural y eficiente.

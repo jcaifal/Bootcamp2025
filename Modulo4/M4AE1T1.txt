@@ -1,0 +1,67 @@
+Para una aplicación como FlashMarket, que maneja una gran cantidad de datos en tiempo real y necesita ser altamente escalable y robusta, la elección de la base de datos es crucial. Aquí hay algunas recomendaciones:
+
+SQL (Relacional):MySQL o PostgreSQL: Para gestionar perfiles de usuario, direcciones, métodos de pago y el historial de compras.
+				  
+				  
+NoSQL (No Relacional):MongoDB o Cassandra: Para manejar el inventario en tiempo real, registrar pedidos y recomendaciones personalizadas.
+
+Redis (Base de Datos en Memoria):Para caché y mejorar la velocidad de acceso a datos frecuentes, asegurando una experiencia de usuario fluida incluso durante picos de carga.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Consistencia (C)
+
+Cada lectura recibe la escritura más recientes o un error
+
+
+Disponibilidad (A)
+
+Un sistema siempre responde a las solicitudes
+
+
+Tolerancia a la partición (P)
+
+Sistema continúa funcionando a pesar de las fallas de comunicación entre nodos de la red
+
+
+TEORME DE CAP :  se debe garantizar la consistencia o la disponibilidad
+
+
+MongoDB
+Consistencia (C): MongoDB puede configurarse para priorizar la consistencia, asegurando que todas las lecturas reciban los datos más recientes.
+Tolerancia a Particiones (P): MongoDB está diseñado para funcionar incluso cuando hay fallos en la red.
+Disponibilidad (A): En caso de partición, MongoDB puede sacrificar la disponibilidad para mantener la consistencia 1.
+Clasificación CAP: CP (Consistencia y Tolerancia a Particiones).
+
+Cassandra
+Disponibilidad (A): Cassandra prioriza la disponibilidad, asegurando que cada solicitud reciba una respuesta, aunque los datos puedan estar desactualizados.
+Tolerancia a Particiones (P): Cassandra está diseñado para funcionar incluso cuando hay fallos en la red.
+Consistencia (C): Cassandra utiliza una consistencia eventual, lo que significa que los datos pueden no ser inmediatamente consistentes 2.
+Clasificación CAP: AP (Disponibilidad y Tolerancia a Particiones).
+
+PostgreSQL
+Consistencia (C): PostgreSQL garantiza que todas las lecturas reciban los datos más recientes.
+Disponibilidad (A): PostgreSQL puede configurarse para ser altamente disponible, pero no está diseñado para manejar particiones de red de manera eficiente.
+Tolerancia a Particiones (P): PostgreSQL no está optimizado para tolerar particiones de red 3.
+Clasificación CAP: CA (Consistencia y Disponibilidad).
+
+Redis
+Disponibilidad (A): Redis es altamente disponible y responde rápidamente a las solicitudes.
+Tolerancia a Particiones (P): Redis puede configurarse para tolerar particiones de red.
+Consistencia (C): Redis puede configurarse para ser consistente, pero generalmente prioriza la disponibilidad3.
+Clasificación CAP: Redis puede ser configurado como AP o CP dependiendo de la configuración específica.
+
+Triángulo CAP
+En el triángulo CAP, cada base de datos se posiciona de la siguiente manera:
+
+MongoDB: En el vértice CP.
+Cassandra: En el vértice AP.
+PostgreSQL: En el vértice CA.
+Redis: Puede estar en AP o CP dependiendo de la configuración.
+
+
+
+Mongo     | Redis   CP (Consistencia y Tolerancia a Particiones)
+Cassandra | Redis   AP (Disponibilidad y Tolerancia a Particiones)
+Postgresql          CA (Consistencia y Disponibilidad)

@@ -1,0 +1,70 @@
+Estructura del esquema
+----------------------
+-- Tabla de usuarios
+CREATE TABLE usuarios (
+    user_id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    fecha_registro DATE
+);
+
+-- Tabla de productos
+CREATE TABLE productos (
+    producto_id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100),
+    categoria VARCHAR(50),
+    precio DECIMAL(10, 2),
+    stock INT
+);
+
+-- Tabla de órdenes
+CREATE TABLE ordenes (
+    orden_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES usuarios(user_id),
+    fecha_orden TIMESTAMP,
+    total DECIMAL(10, 2)
+);
+
+-- Tabla de detalles de orden
+CREATE TABLE orden_detalle (
+    detalle_id SERIAL PRIMARY KEY,
+    orden_id INT REFERENCES ordenes(orden_id),
+    producto_id INT REFERENCES productos(producto_id),
+    cantidad INT,
+    precio_unitario DECIMAL(10, 2)
+);
+
+
+índices recomendados
+--------------------
+-- Índice para acelerar búsquedas por fecha de orden
+CREATE INDEX idx_fecha_orden ON ordenes(fecha_orden);
+
+-- Índice para acelerar búsquedas por usuario
+CREATE INDEX idx_orden_user ON ordenes(user_id);
+
+
+Vista análisis de ventas por mes
+---------------------------------
+CREATE VIEW ventas_mensuales AS
+SELECT 
+    DATE_TRUNC('month', o.fecha_orden) AS mes,
+    p.categoria,
+    SUM(od.cantidad * od.precio_unitario) AS total_ventas,
+    COUNT(DISTINCT o.orden_id) AS total_ordenes
+FROM ordenes o
+JOIN orden_detalle od ON o.orden_id = od.orden_id
+JOIN productos p ON od.producto_id = p.producto_id
+GROUP BY mes, p.categoria
+ORDER BY mes, p.categoria
+
+Justificación
+-------------
+
+Elemento: Mejora de rendimiento
+Normalización: Evita redundancia y facilita mantenimiento.
+Índices: Aceleran búsquedas por fecha y usuario, comunes en reportes y dashboards.
+Vista ventas_mensuales: Permite análisis rápidos sin recalcular uniones y agregaciones.
+Claves foráneas: Garantizan integridad referencial entre usuarios, órdenes y productos.
+
+

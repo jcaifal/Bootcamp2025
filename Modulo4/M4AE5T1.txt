@@ -1,0 +1,27 @@
+ db.createCollection("tienda")
+ 
+  db.ropa.insertMany([
+   {
+     marca: "Levis",
+     autor_id: 1,
+     tipo: "pantalon jeans",
+     color: "gris",
+     talla: 40,
+     modelo:"slim",
+     reviews:[{ autor: "Pedro", comentario: "Excelente Producto"},{ autor: "Ana", comentario: "Excelente calidad"} ],
+     disponibilidad: [{ sucursal:"1",stock:2},{ sucursal:"2",stock:5}]
+   },
+   {
+     marca: "Americanino",
+     autor_id: 2,
+     tipo: "pantalon jeans",
+     color: "negro",
+     talla: 42,
+     modelo:"regular",
+     reviews:[{ autor: "Pedro", comentario: "Excelente Producto"},{ autor: "Ana", comentario: "Excelente calidad"} ],
+     disponibilidad: [{ sucursal:"1",stock:2},{ sucursal:"2",stock:5}]
+   },
+ ])
+
+
+

@@ -1,0 +1,69 @@
+sobre estas consultas {
+  "_id": ObjectId,
+  "nombre": "Martina Soto",
+  "edad": 34,
+  "direccion": {
+    "ciudad": "Curicó",
+    "region": "Maule"
+  },
+  "intereses": [
+    { "nombre": "data", "nivel": "alto" },
+    { "nombre": "jardinería", "nivel": "medio" }
+  ],
+  "fecha_registro": ISODate("2023-04-12"),
+  "activo": true
+} 
+---------------------------------------------------------
+
+db.usuarios.find(
+  {
+    "edad": { "$gt": 30 },
+    "direccion.ciudad": "Rosario"
+  },
+  {
+    "nombre": 1,
+    "edad": 1,
+    "direccion.ciudad": 1,
+    "_id": 0
+  }
+)
+
+--------------------------------------------
+db.usuarios.find(
+  {
+    "fecha_registro": { "$gt": ISODate("2023-01-01") },
+    "intereses.nombre": "data"
+  },
+  {
+    "nombre": 1,
+    "fecha_registro": 1,
+    "intereses.$": 1,
+    "_id": 0
+  }
+)
+--------------------------------------------
+db.usuarios.countDocuments(
+  {
+    "$or": [
+      { "nombre": { "$regex": "^A", "$options": "i" } },
+      { "direccion.ciudad": "Córdoba" }
+    ]
+  }
+)
+
+----------------------------------------------
+
+db.usuarios.aggregate([
+  {
+    $match: {
+      "fecha_registro": { "$gt": ISODate("2023-01-01") },
+      "intereses.nombre": "data"
+    }
+  },
+  {
+    $group: {
+      _id: "$direccion.ciudad",
+      total: { $sum: 1 }
+    }
+  }
+])

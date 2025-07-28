@@ -1,0 +1,57 @@
+TAREA DYNAMO
+
+NOS CONECTAMOS C:\Users\JuanCaifal>aws configure
+AWS Access Key ID [None]: test
+AWS Secret Access Key [None]: test
+Default region name [None]: us-west-2
+Default output format [None]: json
+
+
+
+
+CREAMOS LA TABLA
+aws dynamodb create-table  `
+  --table-name Usuarios  `
+  --attribute-definitions AttributeName=UsuarioID,AttributeType=S  `
+  --key-schema AttributeName=UsuarioID,KeyType=HASH  `
+  --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 
+
+
+
+
+
+aws dynamodb batch-write-item \ `
+  --request-items '{ `
+    "Usuarios": [ `
+      { `
+        "PutRequest": { `
+          "Item": { `
+            "UsuarioID": {"S": "U001"}, `
+            "Nombre": {"S": "Juan"}, `
+            "Edad": {"N": "45"}, `
+            "Ciudad": {"S": "Santiago"} `
+          } `
+        } `
+      }, `
+      { `
+        "PutRequest": { `
+          "Item": { `
+            "UsuarioID": {"S": "U002"}, `
+            "Nombre": {"S": "María"}, `
+            "Edad": {"N": "38"}, `
+            "Ciudad": {"S": "Valparaíso"} `
+          } `
+        } `
+      }, `
+      { `
+        "PutRequest": { `
+          "Item": { `
+            "UsuarioID": {"S": "U003"}, `
+            "Nombre": {"S": "Pedro"}, `
+            "Edad": {"N": "29"}, `
+            "Ciudad": {"S": "Concepción"} `
+          } `
+        } `
+      } `
+    ] `
+  }' `

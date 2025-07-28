@@ -1,0 +1,82 @@
+
+1.- Definir el nombre y la clave primaria
+aws dynamodb create-table `
+--table-name ReservasViaje `
+--attribute-definitions AttributeName=ReservaID,AttributeType=S `
+--key-schema AttributeName=ReservaID,KeyType=HASH `
+--provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 `
+--endpoint-url http://localhost:8000 `
+--region us-west-
+
+
+2.- Insertar campos UsuarioID, Destino, Fecha, Precio
+
+aws dynamodb put-item `
+--table-name ReservasViaje `
+--item '{\"ReservaID\": {\"S\": \"001\"}, \"Destino\": {\"S\": \"Rancagua\"} , \"Fecha\": {\"S\": \"2025-07-14\"}, \"Precio\": {\"N\": \"100\"}}' `
+--endpoint-url http://localhost:8000 `
+--region us-west-2
+aws dynamodb put-item `
+--table-name ReservasViaje `
+--item '{\"ReservaID\": {\"S\": \"002\"}, \"Destino\": {\"S\": \"Santiago\"} , \"Fecha\": {\"S\": \"2025-07-14\"}, \"Precio\": {\"N\": \"150\"}}' `
+--endpoint-url http://localhost:8000 `
+--region us-west-2
+
+3.- Vemos los datos ingresados
+
+aws dynamodb get-item `
+--table-name ReservasViaje `
+--key '{\"ReservaID\": {\"S\": \"001\"}}' `
+--endpoint-url http://localhost:8000 `
+--region us-west-2
+
+
+4.- Carga de items
+
+aws dynamodb batch-write-item `
+--request-items '{ `
+    "ReservasViaje": [ `
+        { `
+            "PutRequest": { `
+                "Item": { `
+                    "ReservaID": {"S": "003"}, `
+                    "Destino": {"S": "Rancagua"}, `
+                    "Fecha": {"S": "2025-07-14"}, `
+                    "Precio": {"N": "200"} `
+                } `
+            } `
+        }, `
+        { `
+            "PutRequest": { `
+                "Item": { `
+                    "ReservaID": {"S": "004"}, `
+                    "Destino": {"S": "Santiago"}, `
+                    "Fecha": {"S": "2025-07-15"}, `
+                    "Precio": {"N": "250"} `
+                } `
+            } `
+        } `
+    ] `
+}' \ `
+--endpoint-url http://localhost:8000 \ `
+--region us-west-2
+
+
+5.- Recuperación
+
+aws dynamodb batch-get-item \  `
+--request-items '{  `
+    "ReservasViaje": {  `
+        "Keys": [  `
+            {  `
+                "ReservaID": {"S": "001"}  `
+            },  `
+            {  `
+                "ReservaID": {"S": "002"}  `
+            }  `
+        ]  `
+    }  `
+}' \  `
+--endpoint-url http://localhost:8000 \  `
+--region us-west-2
+

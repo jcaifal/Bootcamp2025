@@ -1,0 +1,65 @@
+Clase 16. Ejercicio
+Análisis de rendimiento de operaciones CRUD en Cassandra
+Análisis de rendimiento de operaciones CRUD en Cassandra
+En parejas, identifiquen si usan claves de partición adecuadas, si son eficientes y si afectan
+negativamente al rendimiento.
+Propón mejoras para cada caso (reorganización de tabla, uso o eliminación de índices,
+ajuste en clave primaria, etc.).
+Contexto
+
+
+TENGO ESTA TABLA
+CREATE TABLE reproducciones (
+id_usuario UUID,
+id_episodio UUID,
+timestamp TIMESTAMP,
+dispositivo TEXT,
+PRIMARY KEY ((id_usuario), timestamp)
+);
+
+
+
+
+1.- COMO MEJORAR ESTA CONSULTA 
+INSERT INTO reproducciones (
+id_usuario, id_episodio, timestamp, dispositivo
+)
+VALUES (
+'u001', 'e321', '2025-07-05 19:30:00', 'Smart TV'
+);
+
+2.- 
+
+Obtener todas las visualizaciones del episodio e321.
+SELECT * FROM reproducciones
+WHERE id_episodio = 321e4567-e89b-12d3-a456-426614174999;
+
+
+Obtener todas las visualizaciones del episodio e321.
+SELECT * FROM reproducciones
+WHERE id_episodio = 'e231'
+
+
+
+
+
+3.- 
+UPDATE reproducciones
+SET dispositivo = 'Tablet'
+WHERE id_usuario = 123e4567-e89b-12d3-a456-426614174000;
+
+
+UPDATE reproducciones
+SET dispositivo = 'Tablet'
+WHERE id_usuario = 'u001';
+
+
+4.- 
+DELETE FROM reproducciones
+WHERE id_usuario = 123e4567-e89b-12d3-a456-426614174000;
+
+DELETE FROM reproducciones
+WHERE id_usuario = 'u001';
+
+
+

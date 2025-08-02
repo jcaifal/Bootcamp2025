@@ -1,0 +1,41 @@
+Propuesta de arquitectura de datos mínima para una app de delivery, diseñada para ser escalable, flexible y segura, cubriendo desde las fuentes hasta el acceso y visualización:
+
+1. Fuentes de datos
+
+Fuente	                Descripción
+Usuarios  	            Datos de registro, ubicación, historial de pedidos.
+Pedidos	                Información de órdenes, tiempos, estados, pagos.
+Restaurantes            Menús, horarios, ubicación, calificaciones.
+Repartidores            Rutas, disponibilidad, desempeño.
+Eventos en tiempo real	Ubicación GPS, actualizaciones de estado, notificaciones push.
+
+2. Almacenamiento
+
+Tipo de dato	        Tecnología recomendada	                Justificación
+Transaccional	        PostgreSQL / MySQL	                    ACID, integridad de pedidos, pagos.
+No estructurado	        MongoDB (NoSQL)	                        Flexibilidad para menús, comentarios, promociones.
+Eventos en tiempo real	Redis Streams / Kafka	                Alta velocidad para tracking y notificaciones.
+Históricos y analíticos	Data Lake (Amazon S3, Azure Data Lake)	Escalable para análisis batch y ML.
+
+3. Procesamiento de datos
+
+Tipo de procesamiento	Herramientas	                        Uso
+ETL Batch	            Apache Airflow / dbt	                Limpieza y carga diaria de datos históricos.
+Streaming / Tiempo real	Apache Kafka + Spark Streaming / Flink	Procesamiento de eventos como ubicación de repartidores, cambios de estado de pedidos.
+
+4. Seguridad y gobernanza
+Autenticación y autorización: OAuth 2.0 / JWT.
+Cifrado: TLS en tránsito, AES en reposo.
+Control de acceso: Roles (admin, repartidor, cliente, restaurante).
+Auditoría y trazabilidad: Logs centralizados (ELK Stack).
+Gobernanza de datos: Catálogo de datos (DataHub, Amundsen), políticas de retención.
+
+5. Acceso y visualización
+Herramienta	                    Uso
+API REST / GraphQL	            Acceso desde app móvil y web.
+Dashboards                      Metabase, Power BI, Looker)	Visualización de KPIs: pedidos por zona, tiempos de entrega, satisfacción.
+Alertas (Prometheus + Grafana)	Monitoreo de latencia, errores, disponibilidad.
+
+
+ 
+ 

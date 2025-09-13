@@ -1,0 +1,11 @@
+categoria1,categoria2,numerica1,numerica2,label
+A,X,10,100,1
+B,Y,20,200,0
+A,X,15,150,1
+C,Z,30,300,0
+B,Y,25,250,0
+C,Z,35,350,1
+A,X,12,120,1
+B,Y,22,220,0
+C,Z,32,320,1
+A,X,11,110,0

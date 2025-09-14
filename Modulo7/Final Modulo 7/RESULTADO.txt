@@ -1,0 +1,30 @@
+(venv) PS C:\Users\JuanCaifal\Desktop\CURSO_DATA_ENGINEER\Bootcamp2025\Modulo7\first_docker> python producer/producer.py                            
+[1/6] Mensaje enviado: id,usuario,evento
+[2/6] Mensaje enviado: 1,juan,click
+[3/6] Mensaje enviado: 2,ana,scroll
+[4/6] Mensaje enviado: 3,luis,click
+[5/6] Mensaje enviado: 4,maria,hover
+[6/6] Mensaje enviado: 5,carlos,click
+Todos los mensajes han sido enviados.
+(venv) PS C:\Users\JuanCaifal\Desktop\CURSO_DATA_ENGINEER\Bootcamp2025\Modulo7\first_docker> python transformer/transformer.py
+[1/6] Mensaje enviado: id,usuario,evento
+[2/6] Mensaje enviado: 1,juan,click
+[3/6] Mensaje enviado: 2,ana,scroll
+[4/6] Mensaje enviado: 3,luis,click
+[5/6] Mensaje enviado: 4,maria,hover
+[6/6] Mensaje enviado: 5,carlos,click
+Todos los mensajes han sido enviados.
+(venv) PS C:\Users\JuanCaifal\Desktop\CURSO_DATA_ENGINEER\Bootcamp2025\Modulo7\first_docker> python consumer/consumer.py      
+Esperando mensajes...
+Mensaje recibido: id,usuario,evento
+Mensaje recibido: 1,juan,click
+Mensaje recibido: 2,ana,scroll
+Mensaje recibido: 3,luis,click
+Mensaje recibido: 4,maria,hover
+Mensaje recibido: 5,carlos,click
+Mensaje recibido: id,usuario,evento
+Mensaje recibido: 1,juan,click
+Mensaje recibido: 2,ana,scroll
+Mensaje recibido: 3,luis,click
+Mensaje recibido: 4,maria,hover
+Mensaje recibido: 5,carlos,click
